@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     function Userlogin(Request $request){
-        User::where('email', '=', $request->input('email'))
+        $count=User::where('email', '=', $request->input('email'))
         ->where('password', '=', $request->input('password'))
         ->count();
 
