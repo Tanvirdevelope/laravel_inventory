@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    function LoginPage():View{
+        return view('pages.auth.login-page');
+    }
+
+    function RegistrationPage():View{
+        return view('pages.auth.registration-page');
+    }
+    function SendOtpPage():View{
+        return view('pages.auth.send-otp-page');
+    }
+    function VerifyOTPPage():View{
+        return view('pages.auth.verify-otp-page');
+    }
+
+    function ResetPasswordPage():View{
+        return view('pages.auth.reset-pass-page');
+    }
     function UserRegistration(Request $request){
         try {
             User::create([
@@ -114,10 +131,10 @@ class UserController extends Controller
             $password=$request->input('password');
             User::where('email','=',$email)->update(['password'=>$password]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Request Successfully'
-        ],200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Request Successfully'
+            ],200);
 
         }
         catch(Exception $exception){
