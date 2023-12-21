@@ -106,21 +106,21 @@ class UserController extends Controller
 
         if($count==1){
             //Database OTP Update
-            User::where('email','=',$email)->update(['otp'=>0]);
+            User::where('email','=',$email)->update(['otp'=>'0']);
 
             //Password Reset Token Issue
             $token=JWTToken::CreateTokenForSetPassword($request->input('email'));
             return response()->json([
                 'status' => 'success',
                 'message' => 'OTP Verification Successfull',
-                'token' => $token
-            ],200);
+            ],200)->cookie('token',$token,60*24*30);
+
         }
         else{
             return response()->json([
                 'status' => 'failed',
                 'message' => 'unauthorized'
-            ],401);
+            ],200);
         }
     }
 
@@ -140,11 +140,15 @@ class UserController extends Controller
         catch(Exception $exception){
             return response()->json([
                 'status' => 'failed',
-                'message' => 'User Reset Failed'
+                'message' => 'User Reset Failed',
             ],200);
         }
         
         
+    }
+
+    function UserLogout(){
+        return redirect('/userLogin')->cookie('token','',-1);
     }
 
 }
