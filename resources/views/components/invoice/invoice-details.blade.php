@@ -69,7 +69,7 @@
         let res=await axios.post("/invoice-details",{cus_id:cus_id,inv_id:inv_id})
         hideLoader();
 
-        document.getElementById('CName').innerText=res.data['customer']['name']
+        document.getElementById('CName').innerText=res.data['customer']['cus_name']
         document.getElementById('CId').innerText=res.data['customer']['user_id']
         document.getElementById('CEmail').innerText=res.data['customer']['email']
         document.getElementById('total').innerText=res.data['invoice']['total']
@@ -84,7 +84,7 @@
 
         res.data['product'].forEach(function (item,index) {
             let row=`<tr class="text-xs">
-                        <td>${item['product']['name']}</td>
+                        <td>${item['product']['pro_name']}</td>
                         <td>${item['qty']}</td>
                         <td>${item['sale_price']}</td>
                      </tr>`
